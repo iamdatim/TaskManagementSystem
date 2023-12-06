@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TaskManagementSystem_BusinessLogic.Logics.Implementations;
 using TaskManagementSystem_BusinessLogic.Logics.Interfaces;
 using TaskManagementSystem_DataSource.Context;
+using TaskManagementSystem_DataSource.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +13,17 @@ builder.Services.AddControllersWithViews();
 //builder.Services.AddDbConfig(builder.Configuration);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login"; 
+      
+    });
 
 builder.Services.AddScoped<IUserService, UserService>();
 
@@ -27,6 +41,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

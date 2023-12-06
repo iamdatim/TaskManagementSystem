@@ -2,7 +2,26 @@
     ViewData["Title"] = "Home Page";
 }
 
+@if (TempData["Success"] != null)
+{
+    <div class="col-md-12 alert alert-success" id="Message">
+        <span><b>Success!</b> - @TempData["Success"] </span>
+    </div>
+}
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+
+<script>
+    console.log("Script started.");
+    setTimeout(function () {
+        var successMessage = document.getElementById("Message");
+        if (successMessage) {
+            console.log("Hiding message.");
+            successMessage.style.display = "none";
+        }
+    }, 3000);
+</script>

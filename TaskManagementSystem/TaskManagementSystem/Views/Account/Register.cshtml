@@ -53,18 +53,15 @@
                     <div class="row justify-content-start mt-4">
                         <div class="col">
 
-                            @if (!string.IsNullOrEmpty(ViewBag.Message))
+                            @if (TempData["Error"] != null)
                             {
-                                <div class="alert alert-danger validationSpan mt-2 mb-2" id="Message">
-                                    @ViewBag.Message
+                                <div class="col-md-12 alert alert-danger" id="Message">
+                                    <span><b>Sorry!</b> - @TempData["Error"] </span>
                                 </div>
                             }
 
                             <div class="d-flex">
                                 <button class="btn btn-primary ">Submit</button>
-                                <a method="post" class="form-inline d-flex align-items-center ms-3 scnd-btn-a" style="min-width:4rem;" asp-action="Index" asp-controller="TimeEntry">
-                                    <div class="scnd-btn"> Back to TimeEntry</div>
-                                </a>
 
                             </div>
                         </div>

@@ -25,7 +25,37 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                        </li>
                     </ul>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Account" asp-action="Login">
+                            Login
+                        </a>
+                        <span style="padding:5px;"></span>
+
+
+                    }
+                    else
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                        </svg>
+                        <p class="mb-0 fw-bold ms-2">@User.Identity.Name</p>
+                        <span style="padding:5px;"></span>
+
+                        <form asp-controller="Account" asp-action="Logout">
+                            <button class="btn btn-outline-danger my-2 my-sm-0">
+                                Log out
+                            </button>
+                        </form>
+                    }
                 </div>
             </div>
         </nav>

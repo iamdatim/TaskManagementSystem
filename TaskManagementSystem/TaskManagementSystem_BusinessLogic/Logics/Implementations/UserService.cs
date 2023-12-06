@@ -57,5 +57,6 @@ namespace TaskManagementSystem_BusinessLogic.Logics.Implementations
             }
             return GenericResponse<string>.ErrorResponse("Email Already Exist");
         }
+
     }
 }
