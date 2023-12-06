@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using TaskManagementSystem_BusinessLogic.Logics.Implementations;
+using TaskManagementSystem_BusinessLogic.Logics.Interfaces;
 using TaskManagementSystem_DataSource.Context;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,8 @@ builder.Services.AddControllersWithViews();
 //builder.Services.AddDbConfig(builder.Configuration);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
