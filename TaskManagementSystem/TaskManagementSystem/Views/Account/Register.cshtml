@@ -1,0 +1,89 @@
+﻿@using TaskManagementSystem_DTOs.Request;
+
+@model RegisterUserRequestDTO
+
+<link rel="stylesheet" href="~/css/Registration.css" asp-append-version="true" />
+
+<section>
+    <div class="container">
+
+        <form asp-controller="Account" asp-action="Register" method="post">
+            @*<div asp-validation-summary="All" class="text-danger"></div>*@
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-8 col-xl-6">
+                    <div class="row">
+                        <div class="col text-center">
+                            <h1>User Registration</h1>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col mt-4">
+                            <input asp-for="FirstName" class="form-control" placeholder="First Name">
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
+                            <input asp-for="LastName" class="form-control" placeholder="Last Name">
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="col">
+                            <input asp-for="MiddleName" type="text" class="form-control" placeholder="Middle Name">
+                            <span asp-validation-for="MiddleName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
+                            <input asp-for="Email" class="form-control" placeholder="Email">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
+                            <input asp-for="Password" class="form-control" placeholder="Password">
+
+                        </div>
+                        <div class="col">
+                            <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password">
+
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <div class="row justify-content-start mt-4">
+                        <div class="col">
+
+                            @if (!string.IsNullOrEmpty(ViewBag.Message))
+                            {
+                                <div class="alert alert-danger validationSpan mt-2 mb-2" id="Message">
+                                    @ViewBag.Message
+                                </div>
+                            }
+
+                            <div class="d-flex">
+                                <button class="btn btn-primary ">Submit</button>
+                                <a method="post" class="form-inline d-flex align-items-center ms-3 scnd-btn-a" style="min-width:4rem;" asp-action="Index" asp-controller="TimeEntry">
+                                    <div class="scnd-btn"> Back to TimeEntry</div>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</section>
+
+
+<script>
+    console.log("Script started.");
+    setTimeout(function () {
+        var successMessage = document.getElementById("Message");
+        if (successMessage) {
+            console.log("Hiding message.");
+            successMessage.style.display = "none";
+        }
+    }, 3000);
+</script>

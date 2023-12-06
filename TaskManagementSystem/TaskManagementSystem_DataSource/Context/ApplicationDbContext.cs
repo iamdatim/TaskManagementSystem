@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaskManagementSystem_DataSource.Entities;
-
 namespace TaskManagementSystem_DataSource.Context
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
