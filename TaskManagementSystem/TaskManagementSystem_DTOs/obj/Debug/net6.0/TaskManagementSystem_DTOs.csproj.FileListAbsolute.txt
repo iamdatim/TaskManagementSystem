@@ -1,0 +1,12 @@
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\bin\Debug\net6.0\TaskManagementSystem_DTOs.deps.json
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\bin\Debug\net6.0\TaskManagementSystem_DTOs.dll
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\bin\Debug\net6.0\TaskManagementSystem_DTOs.pdb
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\obj\Debug\net6.0\TaskManagementSystem_DTOs.csproj.AssemblyReference.cache
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\obj\Debug\net6.0\TaskManagementSystem_DTOs.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\obj\Debug\net6.0\TaskManagementSystem_DTOs.AssemblyInfoInputs.cache
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\obj\Debug\net6.0\TaskManagementSystem_DTOs.AssemblyInfo.cs
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\obj\Debug\net6.0\TaskManagementSystem_DTOs.csproj.CoreCompileInputs.cache
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\obj\Debug\net6.0\TaskManagementSystem_DTOs.dll
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\obj\Debug\net6.0\refint\TaskManagementSystem_DTOs.dll
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\obj\Debug\net6.0\TaskManagementSystem_DTOs.pdb
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\obj\Debug\net6.0\ref\TaskManagementSystem_DTOs.dll

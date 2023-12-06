@@ -1,0 +1,17 @@
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_BusinessLogic\bin\Debug\net6.0\TaskManagementSystem_BusinessLogic.deps.json
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_BusinessLogic\bin\Debug\net6.0\TaskManagementSystem_BusinessLogic.dll
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_BusinessLogic\bin\Debug\net6.0\TaskManagementSystem_BusinessLogic.pdb
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_BusinessLogic\bin\Debug\net6.0\TaskManagementSystem_DataSource.dll
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_BusinessLogic\bin\Debug\net6.0\TaskManagementSystem_DTOs.dll
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_BusinessLogic\bin\Debug\net6.0\TaskManagementSystem_DataSource.pdb
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_BusinessLogic\bin\Debug\net6.0\TaskManagementSystem_DTOs.pdb
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_BusinessLogic\obj\Debug\net6.0\TaskManagementSystem_BusinessLogic.csproj.AssemblyReference.cache
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_BusinessLogic\obj\Debug\net6.0\TaskManagementSystem_BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_BusinessLogic\obj\Debug\net6.0\TaskManagementSystem_BusinessLogic.AssemblyInfoInputs.cache
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_BusinessLogic\obj\Debug\net6.0\TaskManagementSystem_BusinessLogic.AssemblyInfo.cs
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_BusinessLogic\obj\Debug\net6.0\TaskManagementSystem_BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_BusinessLogic\obj\Debug\net6.0\TaskManagementSystem_BusinessLogic.csproj.CopyComplete
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_BusinessLogic\obj\Debug\net6.0\TaskManagementSystem_BusinessLogic.dll
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_BusinessLogic\obj\Debug\net6.0\refint\TaskManagementSystem_BusinessLogic.dll
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_BusinessLogic\obj\Debug\net6.0\TaskManagementSystem_BusinessLogic.pdb
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_BusinessLogic\obj\Debug\net6.0\ref\TaskManagementSystem_BusinessLogic.dll

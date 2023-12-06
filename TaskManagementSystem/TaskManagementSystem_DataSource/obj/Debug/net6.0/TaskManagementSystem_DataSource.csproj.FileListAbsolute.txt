@@ -1,0 +1,14 @@
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DataSource\bin\Debug\net6.0\TaskManagementSystem_DataSource.deps.json
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DataSource\bin\Debug\net6.0\TaskManagementSystem_DataSource.runtimeconfig.json
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DataSource\bin\Debug\net6.0\TaskManagementSystem_DataSource.dll
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DataSource\bin\Debug\net6.0\TaskManagementSystem_DataSource.pdb
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DataSource\obj\Debug\net6.0\TaskManagementSystem_DataSource.csproj.AssemblyReference.cache
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DataSource\obj\Debug\net6.0\TaskManagementSystem_DataSource.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DataSource\obj\Debug\net6.0\TaskManagementSystem_DataSource.AssemblyInfoInputs.cache
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DataSource\obj\Debug\net6.0\TaskManagementSystem_DataSource.AssemblyInfo.cs
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DataSource\obj\Debug\net6.0\TaskManagementSystem_DataSource.csproj.CoreCompileInputs.cache
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DataSource\obj\Debug\net6.0\TaskManagementSystem_DataSource.dll
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DataSource\obj\Debug\net6.0\refint\TaskManagementSystem_DataSource.dll
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DataSource\obj\Debug\net6.0\TaskManagementSystem_DataSource.pdb
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DataSource\obj\Debug\net6.0\TaskManagementSystem_DataSource.genruntimeconfig.cache
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DataSource\obj\Debug\net6.0\ref\TaskManagementSystem_DataSource.dll
