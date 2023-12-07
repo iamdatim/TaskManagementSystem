@@ -40,6 +40,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/HP/Desktop/All Projects/TaskManagementSystem/TaskManagementSystem/TaskManagementSystem/Views/Todo/AllTask.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9kb1xBbGxUYXNrLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/All Projects/TaskManagementSystem/TaskManagementSystem/TaskManagementSystem/Views/Todo/Assign.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9kb1xBc3NpZ24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/All Projects/TaskManagementSystem/TaskManagementSystem/TaskManagementSystem/Views/Todo/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9kb1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/All Projects/TaskManagementSystem/TaskManagementSystem/TaskManagementSystem/Views/Todo/EditTask.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9kb1xFZGl0VGFzay5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/HP/Desktop/All Projects/TaskManagementSystem/TaskManagementSystem/TaskManagementSystem/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

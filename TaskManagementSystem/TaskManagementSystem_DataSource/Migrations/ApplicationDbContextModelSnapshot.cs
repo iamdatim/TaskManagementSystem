@@ -227,7 +227,7 @@ namespace TaskManagementSystem_DataSource.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CreatedBy")
@@ -244,9 +244,8 @@ namespace TaskManagementSystem_DataSource.Migrations
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("PriorityLevel")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("PriorityLevel")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
                         .IsRequired()

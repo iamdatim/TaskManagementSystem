@@ -1,0 +1,180 @@
+﻿@using TaskManagementSystem_DTOs.Response;
+@model List<GetAllTaskRequestDTO>
+
+@{
+    int count = 1;
+}
+<style>
+    /* Basic table styling */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+        /* Table header styling */
+        .table th {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+
+        /* Alternating row colors */
+        .table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Cell styling */
+        .table td {
+            padding: 10px;
+        }
+
+    /* Truncate text style */
+    .truncate-text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Button styling */
+    .btn {
+        padding: 5px 10px;
+        margin: 2px;
+        cursor: pointer;
+    }
+
+    /*.btn-danger {
+                    background-color: #DC3545;
+                    color: white;
+                }
+
+                .btn-outline-success {
+                    background-color: transparent;
+                    border: 1px solid #28A745;
+                    color: #28A745;
+                }*/
+
+    /* Align middle for buttons */
+    .align-middle {
+        vertical-align: middle;
+    }
+
+</style>
+
+<h1>@Model.FirstOrDefault().Header</h1>
+
+@if (TempData["Success"] != null)
+{
+    <div class="col-md-12 alert alert-success" id="Message">
+        <span><b>Success!</b> - @TempData["Success"] </span>
+    </div>
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                S/N
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                PriorityLevel
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                DueDate
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @count
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    <div class="truncate-text" data-max-length="50">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PriorityLevel)
+                </td>
+                @if (item.IsCompleted == true)
+                {
+                    <td>
+                        Completed
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Not Completed
+                    </td>
+                }
+                <td>
+                    @item.DueDate.ToLongDateString()
+                </td>
+                @if (item.AuthenticatedUserId == item.CreatedBy)
+                {
+                    <td class="align-middle">
+                        <a class="btn btn-danger text-white" asp-action="EditTask" asp-controller="Todo" asp-route-id="@item.Id"><i class="bi bi-trash me-2"></i>Delete</a> |
+                        <a class="btn btn-outline-success" asp-action="EditTask" asp-controller="Todo" asp-route-id="@item.Id"><i class="bi bi-pencil-square me-2"></i>Edit</a>
+                    </td>
+
+                }
+                else
+                {
+                    <td class="align-middle">
+                        <a class="btn btn-outline-success" asp-action="Users" asp-controller="Account" asp-route-id="@item.Id"><i class="bi bi-check-circle-fill me-2"></i>Mark as completed</a>
+                    </td>
+                }
+
+            </tr>
+            count++;
+        }
+    </tbody>
+</table>
+
+<script>
+    console.log("Script started.");
+    setTimeout(function () {
+        var successMessage = document.getElementById("Message");
+        if (successMessage) {
+            console.log("Hiding message.");
+            successMessage.style.display = "none";
+        }
+    }, 3000);
+</script>
+
+@section scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elements = document.getElementsByClassName('truncate-text');
+
+            for (var i = 0; i < elements.length; i++) {
+                var description = elements[i].innerText;
+                var maxLength = elements[i].getAttribute('data-max-length');
+
+                if (description.length > maxLength) {
+                    var truncatedText = description.substring(0, maxLength) + '.....';
+                    elements[i].innerText = truncatedText;
+                }
+            }
+        });
+    </script>
+}

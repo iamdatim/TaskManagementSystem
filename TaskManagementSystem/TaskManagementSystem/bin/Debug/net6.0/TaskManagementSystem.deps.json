@@ -2559,6 +2559,9 @@
         }
       },
       "TaskManagementSystem_DTOs/1.0.0": {
+        "dependencies": {
+          "TaskManagementSystem_DataSource": "1.0.0"
+        },
         "runtime": {
           "TaskManagementSystem_DTOs.dll": {}
         }

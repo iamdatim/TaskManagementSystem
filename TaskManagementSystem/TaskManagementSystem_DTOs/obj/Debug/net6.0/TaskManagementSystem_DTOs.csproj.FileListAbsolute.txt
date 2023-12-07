@@ -10,3 +10,6 @@ C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskM
 C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\obj\Debug\net6.0\refint\TaskManagementSystem_DTOs.dll
 C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\obj\Debug\net6.0\TaskManagementSystem_DTOs.pdb
 C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\obj\Debug\net6.0\ref\TaskManagementSystem_DTOs.dll
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\bin\Debug\net6.0\TaskManagementSystem_DataSource.dll
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\bin\Debug\net6.0\TaskManagementSystem_DataSource.pdb
+C:\Users\HP\Desktop\All Projects\TaskManagementSystem\TaskManagementSystem\TaskManagementSystem_DTOs\obj\Debug\net6.0\TaskManagementSystem_DTOs.csproj.CopyComplete

@@ -193,7 +193,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\HP\\Desktop\\All Projects\\TaskManagementSystem\\TaskManagementSystem\\TaskManagementSystem_DataSource\\TaskManagementSystem_DataSource.csproj": {
+                "projectPath": "C:\\Users\\HP\\Desktop\\All Projects\\TaskManagementSystem\\TaskManagementSystem\\TaskManagementSystem_DataSource\\TaskManagementSystem_DataSource.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

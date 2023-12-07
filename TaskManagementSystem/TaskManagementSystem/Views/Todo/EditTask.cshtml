@@ -1,0 +1,47 @@
+﻿@using TaskManagementSystem_DTOs.Request;
+@using static TaskManagementSystem_DataSource.Entities.Todo;
+@model UpdateTodoRequestDTO
+
+<h2>Create Todo</h2>
+<div class="col-md-4">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Title" class="control-label"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="control-label"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="PriorityLevel" class="control-label"></label>
+            <select asp-for="PriorityLevel" class="form-control" asp-items="Html.GetEnumSelectList<Priority>()"></select>
+            <span asp-validation-for="PriorityLevel" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="IsCompleted" class="control-label"></label>
+            <input asp-for="IsCompleted" type="checkbox" />
+        </div>
+        <div>
+            <label asp-for="DueDate" class="control-label"></label>
+            <input asp-for="DueDate" type="date" class="form-control" />
+            <span asp-validation-for="DueDate" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-2">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+@section scripts {
+    <script>
+        // Get the current date in the format expected by the date input
+        var currentDate = new Date().toISOString().split('T')[0];
+
+        // Set the min attribute of the input to the current date
+        document.getElementById("dueDateInput").min = currentDate;
+    </script>
+}

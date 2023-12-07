@@ -5,6 +5,8 @@ using TaskManagementSystem_BusinessLogic.Logics.Implementations;
 using TaskManagementSystem_BusinessLogic.Logics.Interfaces;
 using TaskManagementSystem_DataSource.Context;
 using TaskManagementSystem_DataSource.Entities;
+using TaskManagementSystem_DataSource.Repository.Implementation;
+using TaskManagementSystem_DataSource.Repository.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +28,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITodoService, TodoService>();
+builder.Services.AddScoped<ITodoRepo, TodoRepo>();
 
 var app = builder.Build();
 

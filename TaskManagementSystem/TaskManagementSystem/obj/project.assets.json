@@ -3791,6 +3791,9 @@
       "TaskManagementSystem_DTOs/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "TaskManagementSystem_DataSource": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/TaskManagementSystem_DTOs.dll": {}
         },
