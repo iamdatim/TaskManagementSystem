@@ -132,5 +132,19 @@ namespace TaskManagementSystem.Controllers
             TempData["Error"] = response.Message;
             return RedirectToAction("Error");
         }
+
+        public async Task<IActionResult> MarkTaskAsCompleted(Guid todoId)
+        {
+            var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
+
+            var response = await _todoService.MarkTodoAsCompletedAsync(todoId);
+            if (response.Success)
+            {
+                TempData["Success"] = response.Message;
+                return RedirectToAction("AllTask");
+            }
+            TempData["Error"] = response.Message;
+            return RedirectToAction("Error");
+        }
     }
 }

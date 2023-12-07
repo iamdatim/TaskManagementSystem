@@ -191,5 +191,19 @@ namespace TaskManagementSystem_BusinessLogic.Logics.Implementations
             return GenericResponse<string>.ErrorResponse("Task does not exist");
         }
 
+        public async Task<GenericResponse<string>> MarkTodoAsCompletedAsync(Guid todoId)
+        {
+            var todoExist = await _todoRepo.GetByIdAsync(todoId);
+            if (todoExist != null)
+            {
+                todoExist.IsCompleted = true;
+                await _todoRepo.UpdateAsync(todoExist);
+
+                return GenericResponse<string>.SuccessResponse("Successful", "Task marked as completed Successful");
+            }
+            return GenericResponse<string>.ErrorResponse("Task does not exist");
+        }
+
+
     }
 }
