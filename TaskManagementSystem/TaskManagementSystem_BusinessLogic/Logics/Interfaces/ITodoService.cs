@@ -17,5 +17,6 @@ namespace TaskManagementSystem_BusinessLogic.Logics.Interfaces
         Task<GenericResponse<List<GetAllTaskRequestDTO>>> AssignedTasksAsync(string userId);
         Task<GenericResponse<List<GetAllTaskRequestDTO>>> CreatedTasksAsync(string userId);
         Task<GenericResponse<UpdateTodoRequestDTO>> EditTodoRequestAsync(Guid todoId);
+        Task<GenericResponse<string>> EditTodoAsync(Guid todoId, UpdateTodoRequestDTO updateTodoRequestDTO);
     }
 }

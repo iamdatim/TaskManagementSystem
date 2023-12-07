@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TaskManagementSystem_DataSource.Entities;
 using TaskManagementSystem_DataSource.Repository.Interface;
 using TaskManagementSystem_DTOs.Request;
@@ -178,10 +173,23 @@ namespace TaskManagementSystem_BusinessLogic.Logics.Implementations
             return GenericResponse<UpdateTodoRequestDTO>.ErrorResponse("Task does not exist");
         }
 
-        //public async Task<GenericResponse<string>> EditTodoAsync(string userId, CreateTodoRequestDTO createTodoRequestDTO)
-        //{
+        public async Task<GenericResponse<string>> EditTodoAsync(Guid todoId, UpdateTodoRequestDTO updateTodoRequestDTO)
+        {
+            var todoExist = await _todoRepo.GetByIdAsync(todoId);
+            if (todoExist != null)
+            {
+                todoExist.Title = updateTodoRequestDTO.Title;
+                todoExist.Description = updateTodoRequestDTO.Description;
+                todoExist.DueDate = updateTodoRequestDTO.DueDate;
+                todoExist.PriorityLevel = updateTodoRequestDTO.PriorityLevel;
+                todoExist.IsCompleted = updateTodoRequestDTO.IsCompleted;
 
-        //}
+                await _todoRepo.UpdateAsync(todoExist);
+
+                return GenericResponse<string>.SuccessResponse("Successful", "Task Edited Successfully");
+            }
+            return GenericResponse<string>.ErrorResponse("Task does not exist");
+        }
 
     }
 }

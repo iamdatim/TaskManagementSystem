@@ -117,5 +117,20 @@ namespace TaskManagementSystem.Controllers
             TempData["Error"] = response.Message;
             return RedirectToAction("Error");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> EditTask(Guid todoId, UpdateTodoRequestDTO updateTodoRequestDTO)
+        {
+            var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
+
+            var response = await _todoService.EditTodoAsync(todoId, updateTodoRequestDTO);
+            if (response.Success)
+            {
+                TempData["Success"] = response.Message;
+                return RedirectToAction("AllTask");
+            }
+            TempData["Error"] = response.Message;
+            return RedirectToAction("Error");
+        }
     }
 }

@@ -132,8 +132,8 @@
                 @if (item.AuthenticatedUserId == item.CreatedBy)
                 {
                     <td class="align-middle">
-                        <a class="btn btn-danger text-white" asp-action="EditTask" asp-controller="Todo" asp-route-id="@item.Id"><i class="bi bi-trash me-2"></i>Delete</a> |
-                        <a class="btn btn-outline-success" asp-action="EditTask" asp-controller="Todo" asp-route-id="@item.Id"><i class="bi bi-pencil-square me-2"></i>Edit</a>
+                        <a class="btn btn-danger text-white" asp-action="EditTask" asp-controller="Todo" asp-route-todoId="@item.Id"><i class="bi bi-trash me-2"></i>Delete</a> |
+                        <a class="btn btn-outline-success" asp-action="EditTask" asp-controller="Todo" asp-route-todoId="@item.Id"><i class="bi bi-pencil-square me-2"></i>Edit</a>
                     </td>
 
                 }
