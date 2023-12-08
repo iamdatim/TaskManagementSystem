@@ -54,12 +54,14 @@
                             Login
                         </a>
                         <span style="padding:5px;"></span>
-
+                        <a class="btn btn-outline-dark my-2 my-sm-0" asp-controller="Account" asp-action="Register">
+                            Register
+                        </a>
 
                     }
                     else
                     {
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#007bff" class="bi bi-person-circle" viewBox="0 0 16 16">
                             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
                             <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
                         </svg>
@@ -84,7 +86,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - TaskManagementSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - Task Management System - <a asp-area="" asp-controller="Todo" asp-action="AllTask">TMS</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

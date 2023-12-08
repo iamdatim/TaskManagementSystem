@@ -9,6 +9,22 @@
       "PackagePath": "staticwebassets\\css\\AllTask.css"
     },
     {
+      "Id": "C:\\Users\\HP\\Desktop\\All Projects\\TaskManagementSystem\\TaskManagementSystem\\TaskManagementSystem\\wwwroot\\css\\CreateTask.css",
+      "PackagePath": "staticwebassets\\css\\CreateTask.css"
+    },
+    {
+      "Id": "C:\\Users\\HP\\Desktop\\All Projects\\TaskManagementSystem\\TaskManagementSystem\\TaskManagementSystem\\wwwroot\\css\\Details.css",
+      "PackagePath": "staticwebassets\\css\\Details.css"
+    },
+    {
+      "Id": "C:\\Users\\HP\\Desktop\\All Projects\\TaskManagementSystem\\TaskManagementSystem\\TaskManagementSystem\\wwwroot\\css\\Login.css",
+      "PackagePath": "staticwebassets\\css\\Login.css"
+    },
+    {
+      "Id": "C:\\Users\\HP\\Desktop\\All Projects\\TaskManagementSystem\\TaskManagementSystem\\TaskManagementSystem\\wwwroot\\css\\Registration.css",
+      "PackagePath": "staticwebassets\\css\\Registration.css"
+    },
+    {
       "Id": "C:\\Users\\HP\\Desktop\\All Projects\\TaskManagementSystem\\TaskManagementSystem\\TaskManagementSystem\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

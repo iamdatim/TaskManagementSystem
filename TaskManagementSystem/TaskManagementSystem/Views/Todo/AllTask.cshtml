@@ -6,58 +6,13 @@
 @{
     int count = 1;
 }
-@*<style>
-    /* Basic table styling */
-    .table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
-
-        /* Table header styling */
-        .table th {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px;
-            text-align: left;
-        }
-
-        /* Alternating row colors */
-        .table tbody tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        /* Cell styling */
-        .table td {
-            padding: 10px;
-        }
-
-    /* Truncate text style */
-    .truncate-text {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    /* Button styling */
-    .btn {
-        padding: 5px 10px;
-        margin: 2px;
-        cursor: pointer;
-    }
-
-    .align-middle {
-        vertical-align: middle;
-    }
-
-</style>*@
 
 <link rel="stylesheet" href="~/css/AllTask.css" asp-append-version="true" />
 
 
 @if (Model.getAllTaskRequestDTOs.Any())
 {
-    <h1>@Model.getAllTaskRequestDTOs.FirstOrDefault()!.Header</h1>
+    <h1 class="mb-5">@Model.getAllTaskRequestDTOs.FirstOrDefault()!.Header</h1>
 }
 
 @if (TempData["Success"] != null)
@@ -71,11 +26,19 @@
 
 @if (Model.getAllTaskRequestDTOs.Any())
 {
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-between">
+        <div class="d-flex mt-2">
+            <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Todo" asp-action="Create">
+                Create New Task
+            </a>
+            <a class="btn btn-outline-primary my-2 my-sm-0" asp-controller="Todo" asp-action="Assign">
+                Assign Task to User
+            </a>
+        </div>
 
         <div class="dropdown">
             <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Sort By
+                All Task
             </button>
             <ul class="dropdown-menu">
                 <li>
@@ -85,127 +48,233 @@
                     <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-assignedTasks="AssignedTasks" data-action="AssignedTasks" asp-action="FilterTask">Your Assigned Tasks</a>
                 </li>
                 <li>
-                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-createdTasks="CreatedTasks" data-action="CreatedTasks" asp-action="FilterTask">Tasks You Craete</a>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-createdTasks="CreatedTasks" data-action="CreatedTasks" asp-action="FilterTask">Tasks You Create</a>
                 </li>
                 <li>
-                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-completed="Completed" data-action="Completed" asp-action="FilterTask">Completed</a>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-completed="Completed" data-action="Completed" asp-action="FilterTask">Completed Task</a>
                 </li>
                 <li>
-                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-notCompleted="Not Completed" data-action="NotCompleted" asp-action="FilterTask">Not Completed</a>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-notCompleted="UnCompleted" data-action="UnCompleted" asp-action="FilterTask">UnCompleted Tasks</a>
                 </li>
                 <li>
-                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-active="Active" data-action="Active" asp-action="FilterTask">Active</a>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-active="Active" data-action="Active" asp-action="FilterTask">Active Tasks</a>
                 </li>
                 <li>
-                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-due="Due Task" data-action="DueTask" asp-action="FilterTask">Due Task</a>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-due="Due Task" data-action="DueTask" asp-action="FilterTask">Due Tasks</a>
                 </li>
             </ul>
         </div>
     </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    S/N
-                </th>
-                <th>
-                    Title
-                </th>
-                <th>
-                    Description
-                </th>
-                <th>
-                    PriorityLevel
-                </th>
-                <th>
-                    Status
-                </th>
-                <th>
-                    DueDate
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        S/N
+                    </th>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Priority Level
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        DueDate
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
 
-            @foreach (var item in Model.getAllTaskRequestDTOs)
-            {
-                <tr class="clickable-row" data-todo-id="@item.Id">
-                    <td>
-                        @count
-                    </td>
-                    <td>
-                        <div class="truncate-title" data-max-length="20">
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </div>
-                    </td>
-                    <td>
-                        <div class="truncate-text" data-max-length="50">
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </div>
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PriorityLevel)
-                    </td>
-                    @if (item.IsCompleted == true)
-                    {
+                @foreach (var item in Model.getAllTaskRequestDTOs)
+                {
+                    <tr class="clickable-row" data-todo-id="@item.Id">
                         <td>
-                            Completed
+                            @count
                         </td>
-                    }
-                    else
-                    {
                         <td>
-                            Not Completed
+                            <div class="truncate-title" data-max-length="20">
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </div>
                         </td>
-                    }
-                    <td>
-                        @item.DueDate.ToLongDateString()
-                    </td>
-                    @if (item.AuthenticatedUserId == item.CreatedBy)
-                    {
-                        <td class="align-middle">
-                            <a class="btn btn-danger text-white" asp-action="Delete" asp-controller="Todo" asp-route-todoId="@item.Id"><i class="bi bi-trash me-2"></i>Delete</a> |
-                            <a class="btn btn-outline-success" asp-action="EditTask" asp-controller="Todo" asp-route-todoId="@item.Id"><i class="bi bi-pencil-square me-2"></i>Edit</a>
+                        <td>
+                            <div class="truncate-text" data-max-length="50">
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </div>
                         </td>
-
-                    }
-                    else
-                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PriorityLevel)
+                        </td>
                         @if (item.IsCompleted == true)
                         {
-                            <td class="align-middle">
-                                <a class="btn btn-outline-success"><i class="bi bi-check-circle-fill me-2"></i>Completed</a>
+                            <td>
+                                Completed
                             </td>
                         }
                         else
                         {
-                            <td class="align-middle">
-                                <a class="btn btn-outline-success" asp-action="MarkTaskAsCompleted" asp-controller="Todo" asp-route-todoId="@item.Id"><i class="bi bi-check-circle-fill me-2"></i>Mark as completed</a>
+                            <td>
+                                UnCompleted
                             </td>
                         }
-                    }
+                        <td>
+                            @item.DueDate.ToLongDateString()
+                        </td>
+                        @if (item.AuthenticatedUserId == item.CreatedBy)
+                        {
+                            <td class="align-middle">
+                                <a class="btn btn-danger text-white" asp-action="Delete" asp-controller="Todo" asp-route-todoId="@item.Id"><i class="bi bi-trash me-2"></i>Delete</a> |
+                                <a class="btn btn-outline-success" asp-action="EditTask" asp-controller="Todo" asp-route-todoId="@item.Id"><i class="bi bi-pencil-square me-2"></i>Edit</a>
+                            </td>
 
-                </tr>
-                count++;
-            }
+                        }
+                        else
+                        {
+                            @if (item.IsCompleted == true)
+                            {
+                                <td class="align-middle">
+                                    <a class="btn btn-outline-warning" asp-action="MarkTaskAsUnCompleted" asp-controller="Todo" asp-route-todoId="@item.Id"><i class="bi bi-check-circle-fill me-2"></i>Mark as uncompleted</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="align-middle">
+                                    <a class="btn btn-outline-success" asp-action="MarkTaskAsCompleted" asp-controller="Todo" asp-route-todoId="@item.Id"><i class="bi bi-check-circle-fill me-2"></i>Mark as completed</a>
+                                </td>
+                            }
+                        }
 
-        </tbody>
-    </table>
+                    </tr>
+                    count++;
+                }
+
+            </tbody>
+        </table>
+    </div>
+
 }
 else
 {
-    <div class="text-center mt-lg-5">
+    @* <div class="text-center mt-lg-5 pt-lg-5">
+        <div class="mb-5">
+            <h1 class="fw-bold text-primary">Welcome to Datim Task Management System</h1>
+            <p>You currently do not have any tasks assigned. Please click the "Create New Task" button to create a task <br> for yourself or click "Assign Task to User" to assign a new task to someone else.</p>
+        </div>
         <h1 class="text-danger">
             No Avalibale Task
         </h1>
 
-        <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Todo" asp-action="Create">
-            Create New Task
-        </a>
-        <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Todo" asp-action="Assign">
-            Assign Task to User
-        </a>
+       <div class="mt-2">
+            <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Todo" asp-action="Create">
+                Create New Task
+            </a>
+            <a class="btn btn-outline-primary my-2 my-sm-0" asp-controller="Todo" asp-action="Assign">
+                Assign Task to User
+            </a>
+       </div>
+    </div>*@
+    <h1 class="mb-5">No Available Task</h1>
+
+    <div class="d-flex justify-content-between">
+        <div class="d-flex mt-2">
+            <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Todo" asp-action="Create">
+                Create New Task
+            </a>
+            <a class="btn btn-outline-primary my-2 my-sm-0" asp-controller="Todo" asp-action="Assign">
+                Assign Task to User
+            </a>
+        </div>
+
+        <div class="dropdown">
+            <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                All Task
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-allTask="AllTask" data-action="AllTask" asp-action="AllTask">All Task</a>
+                </li>
+                <li>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-assignedTasks="AssignedTasks" data-action="AssignedTasks" asp-action="FilterTask">Your Assigned Tasks</a>
+                </li>
+                <li>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-createdTasks="CreatedTasks" data-action="CreatedTasks" asp-action="FilterTask">Tasks You Create</a>
+                </li>
+                <li>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-completed="Completed" data-action="Completed" asp-action="FilterTask">Completed Task</a>
+                </li>
+                <li>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-notCompleted="UnCompleted" data-action="UnCompleted" asp-action="FilterTask">UnCompleted Tasks</a>
+                </li>
+                <li>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-active="Active" data-action="Active" asp-action="FilterTask">Active Tasks</a>
+                </li>
+                <li>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-due="Due Task" data-action="DueTask" asp-action="FilterTask">Due Tasks</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        S/N
+                    </th>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Priority Level
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        DueDate
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr class="clickable-row">
+                    <td>
+                    </td>
+                    <td>
+                        <div class="truncate-title" data-max-length="20">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="truncate-text" data-max-length="50">
+                        </div>
+                    </td>
+                    <td class="text-danger fw-bold fs-1" style="width:400px;">
+                        No Available Task
+                    </td>
+
+                    <td>
+                    </td>
+
+                    <td class="align-middle">
+                    </td>
+
+
+
+                </tr>
+
+
+            </tbody>
+        </table>
     </div>
 }
 

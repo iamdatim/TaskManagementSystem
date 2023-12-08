@@ -2,9 +2,19 @@
 @using static TaskManagementSystem_DataSource.Entities.Todo;
 @model UpdateTodoRequestDTO
 
-<h2>Create Todo</h2>
-<div class="col-md-4">
-    <form asp-action="EditTask" asp-route-todoId="@Model.Id">
+
+<link rel="stylesheet" href="~/css/CreateTask.css" asp-append-version="true" />
+
+<div class="col-md-4" style="margin: 0 auto">
+    @if (TempData["Error"] != null)
+    {
+        <div class="col-md-12 alert alert-danger" id="Message">
+            <span><b>Sorry!</b> - @TempData["Error"] </span>
+        </div>
+    }
+    <form asp-action="EditTask" class="form pt-2" asp-route-todoId="@Model.Id">
+        <h2>Edit Task</h2>
+
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="Title" class="control-label"></label>
@@ -21,9 +31,9 @@
             <select asp-for="PriorityLevel" class="form-control" asp-items="Html.GetEnumSelectList<Priority>()"></select>
             <span asp-validation-for="PriorityLevel" class="text-danger"></span>
         </div>
-        <div>
+        <div class="d-flex mt-3 mb-3">
             <label asp-for="IsCompleted" class="control-label"></label>
-            <input asp-for="IsCompleted" type="checkbox" />
+            <input asp-for="IsCompleted" style="width: 3rem;" type="checkbox" />
         </div>
         <div>
             <label asp-for="DueDate" class="control-label"></label>
@@ -32,7 +42,7 @@
         </div>
         <div class="form-group mt-2">
             <input type="submit" value="Update" class="btn btn-primary" />
-            <a class="btn btn-outline-success" asp-action="AllTask" asp-controller="Todo"><i class="bi bi-pencil-square me-2"></i>All Task</a>
+            <a class="btn btn-outline-success view-all-btn" asp-action="AllTask" asp-controller="Todo"><i class="bi bi-pencil-square me-2"></i>All Task</a>
         </div>
     </form>
 </div>

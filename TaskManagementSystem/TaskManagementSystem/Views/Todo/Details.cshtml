@@ -1,67 +1,17 @@
 ﻿@using TaskManagementSystem_DTOs.Response;
 @model GetTodoResponseDTO
 
-<style>
-    /* Optional: Add your own styling to the body or a container */
-    body {
-        background-color: #f8f9fa; /* Light gray background */
-        font-family: 'Arial', sans-serif; /* Choose a suitable font family */
-    }
-
-    /* Container styling */
-    .d-flex {
-        /*justify-content: center;*/
-    }
-
-    /* Card styling */
-    .mb-5 {
-        background-color: #fff; /* White background */
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        max-width: 800px; /* Adjust based on your design */
-        width: 100%;
-        margin: 20px;
-    }
-
-    /* Header styling */
-    h2 {
-        color: #007bff; /* Blue color */
-        margin-bottom: 20px;
-    }
-
-    /* Icon styling */
-    svg {
-        fill: #007bff; /* Blue color for icons */
-        margin-right: 8px;
-    }
-
-    /* Text styling */
-    p {
-        margin: 0;
-        color: #495057; /* Dark gray text color */
-    }
-
-    /* Back button styling */
-    .scnd-btn-a {
-        text-decoration: none;
-    }
-
-    .scnd-btn {
-        padding: 10px;
-        background-color: #6c757d; /* Gray background */
-        color: #fff; /* White text */
-        border-radius: 4px;
-    }
-
-        .scnd-btn:hover {
-            background-color: #495057; /* Darker gray on hover */
-        }
-
-</style>
+<link rel="stylesheet" href="~/css/Details.css" asp-append-version="true" />
 
 <div class="d-flex justify-content-center p-5">
-    <div class="mb-5">
+
+    <div class="mb-5 details-container">
+        @if (TempData["Success"] != null)
+        {
+            <div class="col-md-12 alert alert-success" id="Message">
+                <span><b>Success!</b> - @TempData["Success"] </span>
+            </div>
+        }
         <h2 class="fw-bold">@Model.Title</h2>
         <div class="mb-4">
             <div class="d-flex align-items-center">
@@ -69,18 +19,18 @@
                     <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
                     <path d="M3 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m0-5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5z" />
                 </svg>
-                <strong class="me-2" style="width: 7rem;">Description:</strong>
-           </div>
+                <strong class="me-2 strong-text" style="width: 7rem;">Description:</strong>
+            </div>
             <br />
-            <p class="mb-0" style="width: 100%; word-wrap: break-word;">@Model.Description</p>
+            <p class="mb-0 p-text" style="width: 100%; word-wrap: break-word;">@Model.Description</p>
         </div>
 
         <div class="d-flex align-items-center mb-3">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-up-right-circle-fill" viewBox="0 0 16 16">
                 <path d="M0 8a8 8 0 1 0 16 0A8 8 0 0 0 0 8m5.904 2.803a.5.5 0 1 1-.707-.707L9.293 6H6.525a.5.5 0 1 1 0-1H10.5a.5.5 0 0 1 .5.5v3.975a.5.5 0 0 1-1 0V6.707z" />
             </svg>
-            <strong class="me-2" style="width: 13rem;">Priority Level:</strong>
-            <p class="mb-0"> @Model.PriorityLevel</p>
+            <strong class="me-2 strong-text" style="width: 13rem;">Priority Level:</strong>
+            <p class="mb-0 p-text"> @Model.PriorityLevel</p>
         </div>
 
         <div class="d-flex align-items-center mb-3">
@@ -88,14 +38,14 @@
                 <path d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5" />
                 <path d="M4.085 1H3.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1h-.585c.055.156.085.325.085.5V2a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 4 2v-.5c0-.175.03-.344.085-.5m6.769 6.854-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708.708Z" />
             </svg>
-            <strong class="me-2" style="width: 13rem;">Status:</strong>
+            <strong class="me-2 strong-text" style="width: 13rem;">Status:</strong>
             @if (Model.IsCompleted == true)
             {
-                <p class="mb-0"> Completed</p>
+                <p class="mb-0 p-text"> Completed</p>
             }
             else
             {
-                <p class="mb-0">Not Completed</p>
+                <p class="mb-0 p-text">Not Completed</p>
             }
         </div>
 
@@ -104,8 +54,8 @@
                 <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zm5.402 9.746c.625 0 1.184-.484 1.184-1.18 0-.832-.527-1.23-1.16-1.23-.586 0-1.168.387-1.168 1.21 0 .817.543 1.2 1.144 1.2z" />
                 <path d="M16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-6.664-1.21c-1.11 0-1.656-.767-1.703-1.407h.683c.043.37.387.82 1.051.82.844 0 1.301-.848 1.305-2.164h-.027c-.153.414-.637.79-1.383.79-.852 0-1.676-.61-1.676-1.77 0-1.137.871-1.809 1.797-1.809 1.172 0 1.953.734 1.953 2.668 0 1.805-.742 2.871-2 2.871zm-2.89-5.435v5.332H5.77V8.079h-.012c-.29.156-.883.52-1.258.777V8.16a12.6 12.6 0 0 1 1.313-.805h.632z" />
             </svg>
-            <strong class="me-2" style="width: 13rem;">Due Date:</strong>
-            <p class="mb-0"> @Model.DueDate.ToLongDateString()</p>
+            <strong class="me-2 strong-text" style="width: 13rem;">Due Date:</strong>
+            <p class="mb-0 p-text"> @Model.DueDate.ToLongDateString()</p>
         </div>
 
         <div class="d-flex align-items-center mb-3">
@@ -114,8 +64,8 @@
                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z" />
                 <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5z" />
             </svg>
-            <strong class="me-2" style="width: 13rem;">Created Date:</strong>
-            <p class="mb-0"> @Model.CreatedAt.ToLongDateString()</p>
+            <strong class="me-2 strong-text" style="width: 13rem;">Created Date:</strong>
+            <p class="mb-0 p-text"> @Model.CreatedAt.ToLongDateString()</p>
         </div>
 
         <div class="d-flex align-items-center mb-3">
@@ -125,30 +75,75 @@
             </svg>
             @if (Model.AuthenticatedUserId == Model.CreatedBy)
             {
-                <strong class="me-2" style="width: 13rem;">You created this task</strong>
-                @*<p class="mb-0"> @Model.CreatedUser</p>*@
+                <strong class="me-2 strong-text" style="width: 13rem;">You created this task:</strong>
+                @if (Model.CreatedUser == Model.User)
+                {
+                    <p class="mb-0 p-text">For yourself</p>
+                }
+
+                @if (Model.CreatedUser != Model.User)
+                {
+
+                    @*<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle me-2" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                    </svg>
+                    <strong class="me-2 strong-text" style="width: 13rem;">You assign this Task to</strong>*@
+                    <p class="mb-0 p-text">You assign this Task to @Model.User</p>
+
+                }
             }
             else
             {
-                <strong class="me-2" style="width: 13rem;">Task Assigned to you by:</strong>
-                <p class="mb-0"> @Model.CreatedUser</p>
+                <strong class="me-2 strong-text" style="width: 13rem;">Task Assigned to you by:</strong>
+                <p class="mb-0 p-text"> @Model.CreatedUser</p>
             }
+
         </div>
 
         @if (Model.AuthenticatedUserId == Model.CreatedBy)
         {
 
-           <div class="mt-4">
+            <div class="mt-4">
                 <a class="btn btn-outline-success" asp-action="EditTask" asp-controller="Todo" asp-route-todoId="@Model.Id"><i class="bi bi-pencil-square me-2"></i>Edit</a>
                 <a class="btn btn-outline-primary" asp-action="AllTask" asp-controller="Todo"><i class="bi bi-view-list me-2"></i>View All Task</a>
-           </div>
+                @if (Model.IsCompleted == false)
+                {
+                    <a class="btn btn-outline-success" asp-action="MarkTaskAsCompleted" asp-controller="Todo" asp-route-todoId="@Model.Id"><i class="bi bi-check-circle-fill me-2"></i>Mark as completed</a>
+
+                }
+                else
+                {
+                    <a class="btn btn-outline-warning" asp-action="MarkTaskAsUnCompleted" asp-controller="Todo" asp-route-todoId="@Model.Id"><i class="bi bi-check-circle-fill me-2"></i>Mark as uncompleted</a>
+                }
+            </div>
 
 
         }
         else
         {
             <a class="btn btn-outline-primary" asp-action="AllTask" asp-controller="Todo"><i class="bi bi-view-list me-2"></i>View All Task</a>
+            @if (Model.IsCompleted == false)
+            {
+                <a class="btn btn-outline-success" asp-action="MarkTaskAsCompleted" asp-controller="Todo" asp-route-todoId="@Model.Id"><i class="bi bi-check-circle-fill me-2"></i>Mark as completed</a>
+
+            }
+            else
+            {
+                <a class="btn btn-outline-warning" asp-action="MarkTaskAsUnCompleted" asp-controller="Todo" asp-route-todoId="@Model.Id"><i class="bi bi-check-circle-fill me-2"></i>Mark as uncompleted</a>
+            }
         }
 
     </div>
 </div>
+
+<script>
+    console.log("Script started.");
+    setTimeout(function () {
+        var successMessage = document.getElementById("Message");
+        if (successMessage) {
+            console.log("Hiding message.");
+            successMessage.style.display = "none";
+        }
+    }, 3000);
+</script>

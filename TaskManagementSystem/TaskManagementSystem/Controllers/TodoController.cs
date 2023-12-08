@@ -75,6 +75,9 @@ namespace TaskManagementSystem.Controllers
         {
             var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
+            var returnUrl = Url.Action("AllTask", "Todo", null, Request.Scheme) + Request.QueryString;
+            TempData["ReturnUrl"] = returnUrl;
+
             var response = await _todoService.AllTaskAsync(userId);
             if (response.Success)
             {
@@ -98,31 +101,6 @@ namespace TaskManagementSystem.Controllers
             return RedirectToAction("Error");
         }
 
-        //public async Task<IActionResult> AssignedTasks()
-        //{
-        //    var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
-
-        //    var response = await _todoService.AssignedTasksAsync(userId);
-        //    if (response.Success)
-        //    {
-        //        return View("AllTask", response.Data);
-        //    }
-        //    TempData["Error"] = response.Message;
-        //    return RedirectToAction("Error");
-        //}
-
-        //public async Task<IActionResult> CreatedTasks()
-        //{
-        //    var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
-
-        //    var response = await _todoService.CreatedTasksAsync(userId);
-        //    if (response.Success)
-        //    {
-        //        return View("AllTask", response.Data);
-        //    }
-        //    TempData["Error"] = response.Message;
-        //    return RedirectToAction("Error");
-        //}
 
         [HttpGet]
         public async Task<IActionResult> EditTask(Guid todoId)
@@ -160,7 +138,10 @@ namespace TaskManagementSystem.Controllers
             var response = await _todoService.GetTodoRequestAsync(userId, todoId);
             if (response.Success)
             {
-                TempData["Success"] = response.Message;
+                var returnUrl = Url.Action("Details", "Todo", null, Request.Scheme) + Request.QueryString;
+                TempData["ReturnUrl"] = returnUrl;
+
+                //TempData["Success"] = response.Message;
                 return View(response.Data);
             }
             TempData["Error"] = response.Message;
@@ -174,8 +155,42 @@ namespace TaskManagementSystem.Controllers
             var response = await _todoService.MarkTodoAsCompletedAsync(todoId);
             if (response.Success)
             {
-                TempData["Success"] = response.Message;
-                return RedirectToAction("AllTask");
+                string returnUrl = TempData["ReturnUrl"] as string;
+                if (returnUrl != null)
+                {
+                    TempData["Success"] = response.Message;
+                    return Redirect(string.IsNullOrEmpty(returnUrl) ? "/default" : returnUrl);
+                }
+                else
+                {
+                    TempData["Success"] = response.Message;
+                    return RedirectToAction("AllTask");
+                }
+                
+            }
+            TempData["Error"] = response.Message;
+            return RedirectToAction("Error");
+        }
+
+        public async Task<IActionResult> MarkTaskAsUnCompleted(Guid todoId)
+        {
+            var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
+
+            var response = await _todoService.MarkTodoAsUnCompletedAsync(todoId);
+            if (response.Success)
+            {
+                string returnUrl = TempData["ReturnUrl"] as string;
+                if (returnUrl != null)
+                {
+                    TempData["Success"] = response.Message;
+                    return Redirect(string.IsNullOrEmpty(returnUrl) ? "/default" : returnUrl);
+                }
+                else
+                {
+                    TempData["Success"] = response.Message;
+                    return RedirectToAction("AllTask");
+                }
+
             }
             TempData["Error"] = response.Message;
             return RedirectToAction("Error");
@@ -210,7 +225,7 @@ namespace TaskManagementSystem.Controllers
             {
                 completed = filterOption;
             }
-            else if (filterOption == "Not Completed")
+            else if (filterOption == "UnCompleted")
             {
                 notCompleted = filterOption;
             }
