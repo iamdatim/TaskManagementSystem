@@ -11,6 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManagementSystem_DataSo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManagementSystem_DTOs", "TaskManagementSystem_DTOs\TaskManagementSystem_DTOs.csproj", "{C4303D1B-7611-4DBB-9A64-3127FD64CDCD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReadMe", "ReadMe", "{7545F5F3-2987-4AB8-ABD8-9C92CC3AE932}"
+	ProjectSection(SolutionItems) = preProject
+		TaskManagementSystem\README.md = TaskManagementSystem\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
