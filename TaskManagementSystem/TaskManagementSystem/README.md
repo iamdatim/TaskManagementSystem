@@ -21,7 +21,7 @@ The Task Management System is a web application built with .NET 6, ASP.NET Core 
 
 - **Task Completion:**
   - Users can mark tasks assigned to them as completed.
-  - Users can mark completed tasks as uncompleted.
+  - Users can mark tasks assigned to them as uncompleted.
   - Users can also mark the tasks they created as completed and uncompleted
 
 - **Task Details:**
