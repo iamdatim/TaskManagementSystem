@@ -150,7 +150,7 @@ namespace TaskManagementSystem_BusinessLogic.Logics.Implementations
                 }
                 else if (due == "Due Task")
                 {
-                    userTasks = filteredTasks.Where(x => x.DueDate < DateTime.Now).ToList();
+                    userTasks = filteredTasks.Where(x => x.DueDate <= DateTime.Now).ToList();
                     header = "Due Tasks";
                     filteredOption = "Due Task";
                 }

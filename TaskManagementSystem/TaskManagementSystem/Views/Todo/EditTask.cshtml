@@ -37,12 +37,12 @@
         </div>
         <div>
             <label asp-for="DueDate" class="control-label"></label>
-            <input asp-for="DueDate" type="date" class="form-control" />
+            <input asp-for="DueDate" type="date" class="form-control" id="dueDateInput" />
             <span asp-validation-for="DueDate" class="text-danger"></span>
         </div>
         <div class="form-group mt-2">
             <input type="submit" value="Update" class="btn btn-primary" />
-            <a class="btn btn-outline-success view-all-btn" asp-action="AllTask" asp-controller="Todo"><i class="bi bi-pencil-square me-2"></i>All Task</a>
+            <a class="btn btn-outline-success view-all-btn" asp-action="AllTask" asp-controller="Todo"><i class="bi bi-pencil-square me-2"></i>View All Task</a>
         </div>
     </form>
 </div>
