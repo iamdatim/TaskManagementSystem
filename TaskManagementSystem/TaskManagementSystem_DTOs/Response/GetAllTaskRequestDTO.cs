@@ -20,5 +20,7 @@ namespace TaskManagementSystem_DTOs.Response
         public DateTime DueDate { get; set; }
         public string AuthenticatedUserId { get; set; } = string.Empty;
         public string Header { get; set; } = string.Empty;
+        public string FilterOption { get; set; }
+
     }
 }

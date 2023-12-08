@@ -59,24 +59,19 @@ namespace TaskManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var user = await _userManager.FindByEmailAsync(login.Email);
-                //if (user != null)
-                //{
-                    var result = await _signInManager.PasswordSignInAsync(model.Email.Split('@')[0], model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(model.Email.Split('@')[0], model.Password, model.RememberMe, lockoutOnFailure: false);
 
-                    if (result.Succeeded)
-                    {
-                        TempData["Success"] = "Login Successful";
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        TempData["Error"] = "Wrong credentials. Please, try again!";
-                        return View(model);
-                    }
-                //}
-                //TempData["Error"] = "Wrong credentials. Please, try again!";
-                //return View(model);
+                if (result.Succeeded)
+                {
+                    TempData["Success"] = "Login Successful";
+                    return RedirectToAction("AllTask", "Todo");
+                }
+                else
+                {
+                    TempData["Error"] = "Wrong credentials. Please, try again!";
+                    return View(model);
+                }
+
             }
             return View();
         }

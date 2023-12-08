@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\TaskManagementSystem.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\HP\\Desktop\\All Projects\\TaskManagementSystem\\TaskManagementSystem\\TaskManagementSystem\\wwwroot\\css\\AllTask.css",
+      "PackagePath": "staticwebassets\\css\\AllTask.css"
+    },
+    {
       "Id": "C:\\Users\\HP\\Desktop\\All Projects\\TaskManagementSystem\\TaskManagementSystem\\TaskManagementSystem\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

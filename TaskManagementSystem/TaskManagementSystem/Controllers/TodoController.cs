@@ -1,10 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
+using System.Drawing.Printing;
 using System.Security.Claims;
 using TaskManagementSystem_BusinessLogic.Logics.Interfaces;
 using TaskManagementSystem_DTOs.Request;
+using TaskManagementSystem_DTOs.Response;
 
 namespace TaskManagementSystem.Controllers
 {
+    [Authorize]
     public class TodoController : Controller
     {
         private readonly ITodoService _todoService;
@@ -65,44 +71,58 @@ namespace TaskManagementSystem.Controllers
             return View(assignTodoRequestDTO);
         }
 
-        public async Task<IActionResult> AllTask()
+        public async Task<IActionResult> AllTask(string due, int page = 1, int pageSize = 10)
         {
             var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
             var response = await _todoService.AllTaskAsync(userId);
             if (response.Success)
             {
-                return View("AllTask", response.Data);
+                int skip = (page - 1) * pageSize;
+                List<GetAllTaskRequestDTO> userTask = response.Data
+                                .Skip(skip)
+                                .Take(pageSize)
+                                .ToList();
+
+                AllTaskDTO allTaskDTO = new AllTaskDTO()
+                {
+                    getAllTaskRequestDTOs = userTask,
+                    PageNumber = page,
+                    PageSize = pageSize,
+                    TotalItems = response.Data.Count,
+                    TotalPages = (int)Math.Ceiling((double)response.Data.Count / pageSize)
+                };
+                return View("AllTask", allTaskDTO);
             }
             TempData["Error"] = response.Message;
             return RedirectToAction("Error");
         }
 
-        public async Task<IActionResult> AssignedTasks()
-        {
-            var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
+        //public async Task<IActionResult> AssignedTasks()
+        //{
+        //    var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
-            var response = await _todoService.AssignedTasksAsync(userId);
-            if (response.Success)
-            {
-                return View("AllTask", response.Data);
-            }
-            TempData["Error"] = response.Message;
-            return RedirectToAction("Error");
-        }
+        //    var response = await _todoService.AssignedTasksAsync(userId);
+        //    if (response.Success)
+        //    {
+        //        return View("AllTask", response.Data);
+        //    }
+        //    TempData["Error"] = response.Message;
+        //    return RedirectToAction("Error");
+        //}
 
-        public async Task<IActionResult> CreatedTasks()
-        {
-            var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
+        //public async Task<IActionResult> CreatedTasks()
+        //{
+        //    var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
-            var response = await _todoService.CreatedTasksAsync(userId);
-            if (response.Success)
-            {
-                return View("AllTask", response.Data);
-            }
-            TempData["Error"] = response.Message;
-            return RedirectToAction("Error");
-        }
+        //    var response = await _todoService.CreatedTasksAsync(userId);
+        //    if (response.Success)
+        //    {
+        //        return View("AllTask", response.Data);
+        //    }
+        //    TempData["Error"] = response.Message;
+        //    return RedirectToAction("Error");
+        //}
 
         [HttpGet]
         public async Task<IActionResult> EditTask(Guid todoId)
@@ -133,6 +153,20 @@ namespace TaskManagementSystem.Controllers
             return RedirectToAction("Error");
         }
 
+        public async Task<IActionResult> Details(Guid todoId)
+        {
+            var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
+
+            var response = await _todoService.GetTodoRequestAsync(userId, todoId);
+            if (response.Success)
+            {
+                TempData["Success"] = response.Message;
+                return View(response.Data);
+            }
+            TempData["Error"] = response.Message;
+            return RedirectToAction("Error");
+        }
+
         public async Task<IActionResult> MarkTaskAsCompleted(Guid todoId)
         {
             var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
@@ -142,6 +176,72 @@ namespace TaskManagementSystem.Controllers
             {
                 TempData["Success"] = response.Message;
                 return RedirectToAction("AllTask");
+            }
+            TempData["Error"] = response.Message;
+            return RedirectToAction("Error");
+        }
+
+        public async Task<IActionResult> Delete(Guid todoId)
+        {
+            var response = await _todoService.DeleteTaskAsync(todoId);
+            if (response.Success)
+            {
+                TempData["Success"] = response.Message;
+                return RedirectToAction("AllTask");
+            }
+            TempData["Error"] = response.Message;
+            return RedirectToAction("Error");
+        }
+
+
+        public async Task<IActionResult> FilterTask(string allTask, string assignedTasks, string createdTasks, string completed, string notCompleted, string active, string due, int page = 1, int pageSize = 10, string filterOption = "AllTask")
+        {
+            var userId = HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
+
+            if (filterOption == "AssignedTasks")
+            {
+                assignedTasks = filterOption;
+            }
+            else if (filterOption == "CreatedTasks")
+            {
+                createdTasks = filterOption;
+            }
+            else if (filterOption == "Completed")
+            {
+                completed = filterOption;
+            }
+            else if (filterOption == "Not Completed")
+            {
+                notCompleted = filterOption;
+            }
+            else if (filterOption == "Active")
+            {
+                active = filterOption;
+            }
+            else if (filterOption == "Due Task")
+            {
+                due = filterOption;
+            }
+
+            var response = await _todoService.FilterTasksAsync(userId, allTask, assignedTasks, createdTasks, completed, notCompleted, active, due);
+            if (response.Success)
+            {
+                int skip = (page - 1) * pageSize;
+                List<GetAllTaskRequestDTO> userTask = response.Data
+                                .Skip(skip)
+                                .Take(pageSize)
+                                .ToList();
+
+                AllTaskDTO allTaskDTO = new AllTaskDTO()
+                {
+                    getAllTaskRequestDTOs = userTask,
+                    PageNumber = page,
+                    PageSize = pageSize,
+                    TotalItems = response.Data.Count,
+                    TotalPages = (int)Math.Ceiling((double)response.Data.Count / pageSize)
+                };
+
+                return View("AllTask", allTaskDTO);
             }
             TempData["Error"] = response.Message;
             return RedirectToAction("Error");

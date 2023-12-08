@@ -79,7 +79,7 @@ namespace TaskManagementSystem_BusinessLogic.Logics.Implementations
             if (userExist != null)
             {
                 var tasks = await _todoRepo.GetAllAsync();
-                var userTasks = tasks.Where(x => x.UserId == userExist.Id || x.CreatedBy == userExist.Id).Select(selector => new GetAllTaskRequestDTO
+                var userTasks = tasks.Where(x => (x.UserId == userExist.Id || x.CreatedBy == userExist.Id) && x.DueDate >= DateTime.Now).Select(selector => new GetAllTaskRequestDTO
                 {
                     Id = selector.Id,
                     Title = selector.Title,
@@ -94,7 +94,7 @@ namespace TaskManagementSystem_BusinessLogic.Logics.Implementations
                     Header = "All Available Task"
                 }).OrderByDescending(x => x.CreatedAt).ToList();
 
-                return GenericResponse<List<GetAllTaskRequestDTO>>.SuccessResponse(userTasks, "Successful");
+                return GenericResponse<List<GetAllTaskRequestDTO>>.SuccessResponse(userTasks);
             }
             return GenericResponse<List<GetAllTaskRequestDTO>>.ErrorResponse("User does not exist");
 
@@ -154,6 +154,179 @@ namespace TaskManagementSystem_BusinessLogic.Logics.Implementations
 
         }
 
+        //public async Task<GenericResponse<List<GetAllTaskRequestDTO>>> SortTasksAsync(string userId, string completed, string notCompleted, string active, string due)
+        //{
+        //    var userExist = await _userManager.FindByIdAsync(userId);
+        //    if (userExist != null)
+        //    {
+        //        var tasks = await _todoRepo.GetAllAsync();
+
+
+        //        if (completed != string.Empty && completed == "Completed")
+        //        {
+        //            var userTasks = tasks.Where(x => (x.UserId == userExist.Id) && x.IsCompleted == true).Select(selector => new GetAllTaskRequestDTO
+        //            {
+        //                Id = selector.Id,
+        //                Title = selector.Title,
+        //                Description = selector.Description,
+        //                DueDate = selector.DueDate,
+        //                PriorityLevel = selector.PriorityLevel,
+        //                IsCompleted = selector.IsCompleted,
+        //                UserId = selector.UserId,
+        //                CreatedAt = selector.CreatedAt,
+        //                CreatedBy = selector.CreatedBy,
+        //                AuthenticatedUserId = userId,
+        //                Header = "Completed Task"
+        //            }).OrderByDescending(x => x.CreatedAt).ToList();
+
+        //            return GenericResponse<List<GetAllTaskRequestDTO>>.SuccessResponse(userTasks, "Successful");
+        //        }
+
+        //        if (notCompleted != string.Empty && notCompleted == "Not Completed")
+        //        {
+        //            var userTasks = tasks.Where(x => (x.UserId == userExist.Id) && x.IsCompleted == false).Select(selector => new GetAllTaskRequestDTO
+        //            {
+        //                Id = selector.Id,
+        //                Title = selector.Title,
+        //                Description = selector.Description,
+        //                DueDate = selector.DueDate,
+        //                PriorityLevel = selector.PriorityLevel,
+        //                IsCompleted = selector.IsCompleted,
+        //                UserId = selector.UserId,
+        //                CreatedAt = selector.CreatedAt,
+        //                CreatedBy = selector.CreatedBy,
+        //                AuthenticatedUserId = userId,
+        //                Header = "Incomplete Tasks"
+        //            }).OrderByDescending(x => x.CreatedAt).ToList();
+
+        //            return GenericResponse<List<GetAllTaskRequestDTO>>.SuccessResponse(userTasks, "Successful");
+        //        }
+
+        //        if (active != string.Empty && active == "Active")
+        //        {
+        //            var userTasks = tasks.Where(x => (x.UserId == userExist.Id) && x.DueDate >= DateTime.Now).Select(selector => new GetAllTaskRequestDTO
+        //            {
+        //                Id = selector.Id,
+        //                Title = selector.Title,
+        //                Description = selector.Description,
+        //                DueDate = selector.DueDate,
+        //                PriorityLevel = selector.PriorityLevel,
+        //                IsCompleted = selector.IsCompleted,
+        //                UserId = selector.UserId,
+        //                CreatedAt = selector.CreatedAt,
+        //                CreatedBy = selector.CreatedBy,
+        //                AuthenticatedUserId = userId,
+        //                Header = "Active Task"
+        //            }).OrderByDescending(x => x.CreatedAt).ToList();
+
+        //            return GenericResponse<List<GetAllTaskRequestDTO>>.SuccessResponse(userTasks, "Successful");
+        //        }
+
+        //        if (due != string.Empty && due == "Due Task")
+        //        {
+        //            var userTasks = tasks.Where(x => (x.UserId == userExist.Id) && x.DueDate < DateTime.Now).Select(selector => new GetAllTaskRequestDTO
+        //            {
+        //                Id = selector.Id,
+        //                Title = selector.Title,
+        //                Description = selector.Description,
+        //                DueDate = selector.DueDate,
+        //                PriorityLevel = selector.PriorityLevel,
+        //                IsCompleted = selector.IsCompleted,
+        //                UserId = selector.UserId,
+        //                CreatedAt = selector.CreatedAt,
+        //                CreatedBy = selector.CreatedBy,
+        //                AuthenticatedUserId = userId,
+        //                Header = "Due Task"
+        //            }).OrderByDescending(x => x.CreatedAt).ToList();
+
+        //            return GenericResponse<List<GetAllTaskRequestDTO>>.SuccessResponse(userTasks, "Successful");
+        //        }
+        //    }
+        //    return GenericResponse<List<GetAllTaskRequestDTO>>.ErrorResponse("User does not exist");
+
+        //}
+
+        public async Task<GenericResponse<List<GetAllTaskRequestDTO>>> FilterTasksAsync(string userId, string allTask, string assignedTasks, string createdTasks, string completed, string notCompleted, string active, string due)
+        {
+            var userExist = await _userManager.FindByIdAsync(userId);
+            if (userExist != null)
+            {
+                var tasks = await _todoRepo.GetAllAsync();
+                var filteredTasks = tasks.Where(x => x.UserId == userExist.Id);
+
+                List<Todo> userTasks = new();
+                string header = string.Empty;
+                string filteredOption = string.Empty;
+
+                if (allTask == "AllTask")
+                {
+                    userTasks = tasks.Where(x => (x.UserId == userExist.Id || x.CreatedBy == userExist.Id) && x.DueDate >= DateTime.Now).ToList();
+                    header = "All Available Task";
+                }
+                else if (assignedTasks == "AssignedTasks")
+                {
+                    userTasks = tasks.Where(x => x.CreatedBy != userExist.Id && x.UserId == userId).ToList();
+                    header = "Your Assigned Task";
+                    filteredOption = "AssignedTasks";
+                }
+                else if (createdTasks == "CreatedTasks")
+                {
+                    userTasks = tasks.Where(x => x.CreatedBy == userExist.Id).ToList();
+                    header = "Task you create";
+                    filteredOption = "CreatedTasks";
+
+                }
+                else if (completed == "Completed")
+                {
+                    userTasks = filteredTasks.Where(x => x.IsCompleted).ToList();
+                    header = "Completed Task";
+                    filteredOption = "Completed";
+                }
+                else if (notCompleted == "Not Completed")
+                {
+                    userTasks = filteredTasks.Where(x => !x.IsCompleted).ToList();
+                    header = "Incomplete Tasks";
+                    filteredOption = "Not Completed";
+                }
+                else if (active == "Active")
+                {
+                    userTasks = filteredTasks.Where(x => x.DueDate >= DateTime.Now).ToList();
+                    header = "Active Task";
+                    filteredOption = "Active";
+                }
+                else if (due == "Due Task")
+                {
+                    userTasks = filteredTasks.Where(x => x.DueDate < DateTime.Now).ToList();
+                    header = "Due Task";
+                    filteredOption = "Due Task";
+                }
+                else
+                {
+                    return GenericResponse<List<GetAllTaskRequestDTO>>.ErrorResponse("Invalid sorting criteria");
+                }
+
+                var response = userTasks.Select(selector => new GetAllTaskRequestDTO
+                {
+                    Id = selector.Id,
+                    Title = selector.Title,
+                    Description = selector.Description,
+                    DueDate = selector.DueDate,
+                    PriorityLevel = selector.PriorityLevel,
+                    IsCompleted = selector.IsCompleted,
+                    UserId = selector.UserId,
+                    CreatedAt = selector.CreatedAt,
+                    CreatedBy = selector.CreatedBy,
+                    AuthenticatedUserId = userId,
+                    Header = header,
+                    FilterOption = filteredOption
+                }).OrderByDescending(x => x.CreatedAt).ToList();
+
+                return GenericResponse<List<GetAllTaskRequestDTO>>.SuccessResponse(response);
+            }
+            return GenericResponse<List<GetAllTaskRequestDTO>>.ErrorResponse("User does not exist");
+        }
+
+
         public async Task<GenericResponse<UpdateTodoRequestDTO>> EditTodoRequestAsync(Guid todoId)
         {
             var todoExist = await _todoRepo.GetByIdAsync(todoId);
@@ -168,9 +341,36 @@ namespace TaskManagementSystem_BusinessLogic.Logics.Implementations
                     PriorityLevel = todoExist.PriorityLevel,
                     IsCompleted = todoExist.IsCompleted,
                 };
-                return GenericResponse<UpdateTodoRequestDTO>.SuccessResponse(updateTodoRequestDTO, "Successful");
+                return GenericResponse<UpdateTodoRequestDTO>.SuccessResponse(updateTodoRequestDTO);
             }
             return GenericResponse<UpdateTodoRequestDTO>.ErrorResponse("Task does not exist");
+        }
+
+        public async Task<GenericResponse<GetTodoResponseDTO>> GetTodoRequestAsync(string userId, Guid todoId)
+        {
+            var todoExist = await _todoRepo.GetByIdAsync(todoId);
+
+            var createdUser = await _userManager.FindByIdAsync(todoExist.CreatedBy);
+            var user = await _userManager.FindByIdAsync(todoExist.UserId);
+            if (todoExist != null)
+            {
+                GetTodoResponseDTO getTodoResponseDTO = new()
+                {
+                    Id = todoExist.Id,
+                    Title = todoExist.Title,
+                    Description = todoExist.Description,
+                    DueDate = todoExist.DueDate,
+                    PriorityLevel = todoExist.PriorityLevel,
+                    IsCompleted = todoExist.IsCompleted,
+                    AuthenticatedUserId = userId,
+                    CreatedUser = $"{createdUser.LastName} {createdUser.FirstName}",
+                    User = $"{user.LastName} {user.FirstName}",
+                    CreatedAt = todoExist.CreatedAt,
+                    CreatedBy = todoExist.CreatedBy,
+                };
+                return GenericResponse<GetTodoResponseDTO>.SuccessResponse(getTodoResponseDTO);
+            }
+            return GenericResponse<GetTodoResponseDTO>.ErrorResponse("Task does not exist");
         }
 
         public async Task<GenericResponse<string>> EditTodoAsync(Guid todoId, UpdateTodoRequestDTO updateTodoRequestDTO)
@@ -200,6 +400,18 @@ namespace TaskManagementSystem_BusinessLogic.Logics.Implementations
                 await _todoRepo.UpdateAsync(todoExist);
 
                 return GenericResponse<string>.SuccessResponse("Successful", "Task marked as completed Successful");
+            }
+            return GenericResponse<string>.ErrorResponse("Task does not exist");
+        }
+
+        public async Task<GenericResponse<string>> DeleteTaskAsync(Guid todoId)
+        {
+            var todoExist = await _todoRepo.GetByIdAsync(todoId);
+            if (todoExist != null)
+            {
+                await _todoRepo.DeleteAsync(todoExist);
+
+                return GenericResponse<string>.SuccessResponse("Successful", "Task deleted Successful");
             }
             return GenericResponse<string>.ErrorResponse("Task does not exist");
         }

@@ -1,10 +1,12 @@
-﻿@using TaskManagementSystem_DTOs.Response;
-@model List<GetAllTaskRequestDTO>
+﻿@using Newtonsoft.Json;
+@using System.Net;
+@using TaskManagementSystem_DTOs.Response;
+@model AllTaskDTO
 
 @{
     int count = 1;
 }
-<style>
+@*<style>
     /* Basic table styling */
     .table {
         width: 100%;
@@ -44,25 +46,19 @@
         cursor: pointer;
     }
 
-    /*.btn-danger {
-                    background-color: #DC3545;
-                    color: white;
-                }
-
-                .btn-outline-success {
-                    background-color: transparent;
-                    border: 1px solid #28A745;
-                    color: #28A745;
-                }*/
-
-    /* Align middle for buttons */
     .align-middle {
         vertical-align: middle;
     }
 
-</style>
+</style>*@
 
-<h1>@Model.FirstOrDefault().Header</h1>
+<link rel="stylesheet" href="~/css/AllTask.css" asp-append-version="true" />
+
+
+@if (Model.getAllTaskRequestDTOs.Any())
+{
+    <h1>@Model.getAllTaskRequestDTOs.FirstOrDefault()!.Header</h1>
+}
 
 @if (TempData["Success"] != null)
 {
@@ -72,96 +68,229 @@
 }
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                S/N
-            </th>
-            <th>
-                Title
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                PriorityLevel
-            </th>
-            <th>
-                Status
-            </th>
-            <th>
-                DueDate
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+
+@if (Model.getAllTaskRequestDTOs.Any())
+{
+    <div class="d-flex justify-content-end">
+
+        <div class="dropdown">
+            <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Sort By
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-allTask="AllTask" data-action="AllTask" asp-action="AllTask">All Task</a>
+                </li>
+                <li>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-assignedTasks="AssignedTasks" data-action="AssignedTasks" asp-action="FilterTask">Your Assigned Tasks</a>
+                </li>
+                <li>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-createdTasks="CreatedTasks" data-action="CreatedTasks" asp-action="FilterTask">Tasks You Craete</a>
+                </li>
+                <li>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-completed="Completed" data-action="Completed" asp-action="FilterTask">Completed</a>
+                </li>
+                <li>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-notCompleted="Not Completed" data-action="NotCompleted" asp-action="FilterTask">Not Completed</a>
+                </li>
+                <li>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-active="Active" data-action="Active" asp-action="FilterTask">Active</a>
+                </li>
+                <li>
+                    <a class="nav-link text-dark filter-option" asp-area="" asp-controller="Todo" asp-route-due="Due Task" data-action="DueTask" asp-action="FilterTask">Due Task</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @count
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    <div class="truncate-text" data-max-length="50">
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </div>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PriorityLevel)
-                </td>
-                @if (item.IsCompleted == true)
-                {
-                    <td>
-                        Completed
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        Not Completed
-                    </td>
-                }
-                <td>
-                    @item.DueDate.ToLongDateString()
-                </td>
-                @if (item.AuthenticatedUserId == item.CreatedBy)
-                {
-                    <td class="align-middle">
-                        <a class="btn btn-danger text-white" asp-action="EditTask" asp-controller="Todo" asp-route-todoId="@item.Id"><i class="bi bi-trash me-2"></i>Delete</a> |
-                        <a class="btn btn-outline-success" asp-action="EditTask" asp-controller="Todo" asp-route-todoId="@item.Id"><i class="bi bi-pencil-square me-2"></i>Edit</a>
-                    </td>
-
-                }
-                else
-                {
-                    <td class="align-middle">
-                        <a class="btn btn-outline-success" asp-action="MarkTaskAsCompleted" asp-controller="Todo" asp-route-todoId="@item.Id"><i class="bi bi-check-circle-fill me-2"></i>Mark as completed</a>
-                    </td>
-                }
-
+                <th>
+                    S/N
+                </th>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    PriorityLevel
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    DueDate
+                </th>
+                <th></th>
             </tr>
-            count++;
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
 
-<script>
-    console.log("Script started.");
-    setTimeout(function () {
-        var successMessage = document.getElementById("Message");
-        if (successMessage) {
-            console.log("Hiding message.");
-            successMessage.style.display = "none";
-        }
-    }, 3000);
-</script>
+            @foreach (var item in Model.getAllTaskRequestDTOs)
+            {
+                <tr class="clickable-row" data-todo-id="@item.Id">
+                    <td>
+                        @count
+                    </td>
+                    <td>
+                        <div class="truncate-title" data-max-length="20">
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </div>
+                    </td>
+                    <td>
+                        <div class="truncate-text" data-max-length="50">
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PriorityLevel)
+                    </td>
+                    @if (item.IsCompleted == true)
+                    {
+                        <td>
+                            Completed
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            Not Completed
+                        </td>
+                    }
+                    <td>
+                        @item.DueDate.ToLongDateString()
+                    </td>
+                    @if (item.AuthenticatedUserId == item.CreatedBy)
+                    {
+                        <td class="align-middle">
+                            <a class="btn btn-danger text-white" asp-action="Delete" asp-controller="Todo" asp-route-todoId="@item.Id"><i class="bi bi-trash me-2"></i>Delete</a> |
+                            <a class="btn btn-outline-success" asp-action="EditTask" asp-controller="Todo" asp-route-todoId="@item.Id"><i class="bi bi-pencil-square me-2"></i>Edit</a>
+                        </td>
+
+                    }
+                    else
+                    {
+                        @if (item.IsCompleted == true)
+                        {
+                            <td class="align-middle">
+                                <a class="btn btn-outline-success"><i class="bi bi-check-circle-fill me-2"></i>Completed</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="align-middle">
+                                <a class="btn btn-outline-success" asp-action="MarkTaskAsCompleted" asp-controller="Todo" asp-route-todoId="@item.Id"><i class="bi bi-check-circle-fill me-2"></i>Mark as completed</a>
+                            </td>
+                        }
+                    }
+
+                </tr>
+                count++;
+            }
+
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="text-center mt-lg-5">
+        <h1 class="text-danger">
+            No Avalibale Task
+        </h1>
+
+        <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Todo" asp-action="Create">
+            Create New Task
+        </a>
+        <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Todo" asp-action="Assign">
+            Assign Task to User
+        </a>
+    </div>
+}
+
+
+@if (Model.getAllTaskRequestDTOs?.Any() == true)
+{
+    <nav aria-label="..." class="d-flex justify-content-between m-5">
+        <ul class="pagination">
+            <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")">
+                @if (Model.PageNumber > 1)
+                {
+                    <a class="page-link" href="?page=@(Model.PageNumber - 1)&amp;filterOption=@Model.getAllTaskRequestDTOs.FirstOrDefault()!.FilterOption">Previous</a>
+                }
+                else
+                {
+                    <span class="page-link">Previous</span>
+                }
+            </li>
+
+            @if (Model.TotalPages > 5)
+            {
+                @if (Model.PageNumber > 3)
+                {
+                    <li class="page-item">
+                        <span class="page-link">...</span>
+                    </li>
+                }
+
+                @for (var i = Math.Max(1, Model.PageNumber - 2); i <= Math.Min(Model.TotalPages, Model.PageNumber + 2); i++)
+                {
+                    <li class="page-item @(Model.PageNumber == i ? "active" : "")">
+                        <a class="page-link" href="?page=@i&amp;filterOption=@Model.getAllTaskRequestDTOs.FirstOrDefault()!.FilterOption">@i</a>
+                    </li>
+                }
+
+                @if (Model.PageNumber < Model.TotalPages - 2)
+                {
+                    <li class="page-item">
+                        <span class="page-link">...</span>
+                    </li>
+                }
+            }
+            else
+            {
+                @for (var i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(Model.PageNumber == i ? "active" : "")">
+                        <a class="page-link" href="?page=@i&amp;filterOption=@Model.getAllTaskRequestDTOs.FirstOrDefault()!.FilterOption">@i</a>
+                    </li>
+                }
+            }
+
+            <li class="page-item @(Model.PageNumber == Model.TotalPages ? "disabled" : "")">
+                @if (Model.PageNumber < Model.TotalPages)
+                {
+                    <a class="page-link" href="?page=@(Model.PageNumber + 1)&amp;filterOption=@Model.getAllTaskRequestDTOs.FirstOrDefault()!.FilterOption">Next</a>
+                }
+                else
+                {
+                    <span class="page-link">Next</span>
+                }
+            </li>
+        </ul>
+
+
+        <div class="pagination-info">
+            Showing: @((Model.PageNumber - 1) * Model.PageSize + 1) - @Math.Min(Model.PageNumber * Model.PageSize, Model.TotalItems) of @Model.TotalItems
+        </div>
+    </nav>
+}
+
+
 
 @section scripts {
+    <script>
+        console.log("Script started.");
+        setTimeout(function () {
+            var successMessage = document.getElementById("Message");
+            if (successMessage) {
+                console.log("Hiding message.");
+                successMessage.style.display = "none";
+            }
+        }, 3000);
+    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var elements = document.getElementsByClassName('truncate-text');
@@ -177,4 +306,60 @@
             }
         });
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elements = document.getElementsByClassName('truncate-title');
+
+            for (var i = 0; i < elements.length; i++) {
+                var description = elements[i].innerText;
+                var maxLength = elements[i].getAttribute('data-max-length');
+
+                if (description.length > maxLength) {
+                    var truncatedText = description.substring(0, maxLength) + '...';
+                    elements[i].innerText = truncatedText;
+                }
+            }
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Retrieve the stored action from localStorage
+            var storedAction = localStorage.getItem('selectedAction');
+
+            // If a stored action exists, update the button text
+            if (storedAction) {
+                $('.dropdown-toggle').text($('.filter-option[data-action="' + storedAction + '"]').text());
+            }
+
+            // Handle click event on filter options
+            $('.filter-option').click(function () {
+                var selectedText = $(this).text();
+                var selectedAction = $(this).data('action');
+
+                // Update the button text and store the selected action in localStorage
+                $('.dropdown-toggle').text(selectedText);
+                localStorage.setItem('selectedAction', selectedAction);
+
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var rows = document.querySelectorAll(".clickable-row");
+            rows.forEach(function (row) {
+                row.addEventListener("click", function () {
+                    var todoId = row.getAttribute("data-todo-id");
+                    if (todoId) {
+                        window.location.href = `@Url.Action("Details", "Todo")?todoId=${todoId}`;
+                    }
+                });
+            });
+        });
+    </script>
+
 }
+
